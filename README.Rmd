@@ -54,10 +54,6 @@ returns <- av %>%
     Time = parse_number(Time),
     Return = str_to_lower(Return)
   )
-
-
-
-  
 ```
 
 
