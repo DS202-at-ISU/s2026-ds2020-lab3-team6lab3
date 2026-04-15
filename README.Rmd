@@ -65,6 +65,15 @@ returns <- av %>%
 Similarly, deal with the returns of characters.
 
 Based on these datasets calculate the average number of deaths an Avenger suffers. 
+```{r}
+avg_deaths <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarise(num_deaths = n()) %>%
+  summarise(avg = mean(num_deaths))
+
+avg_deaths
+```
+
 
 ## Individually
 
