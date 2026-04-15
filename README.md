@@ -73,20 +73,6 @@ data set `deaths`.
 
 ``` r
 library(tidyverse)
-```
-
-    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ## ✔ dplyr     1.2.0     ✔ readr     2.1.6
-    ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-    ## ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
-    ## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
-    ## ✔ purrr     1.2.1     
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-
-``` r
 deaths <- av %>%
   pivot_longer(
     cols = c(Death1, Death2, Death3, Death4, Death5),
@@ -96,7 +82,8 @@ deaths <- av %>%
   mutate(
     Time = parse_number(Time),
     Death = str_to_lower(Death)
-    )
+  ) %>%
+  filter(Death != "")
 
 returns <- av %>%
   pivot_longer(
@@ -107,13 +94,28 @@ returns <- av %>%
   mutate(
     Time = parse_number(Time),
     Return = str_to_lower(Return)
-  )
+  ) %>%
+  filter(Return != "")
 ```
 
 Similarly, deal with the returns of characters.
 
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
+
+``` r
+avg_deaths <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarise(num_deaths = n()) %>%
+  summarise(avg = mean(num_deaths))
+
+avg_deaths
+```
+
+    ## # A tibble: 1 × 1
+    ##     avg
+    ##   <dbl>
+    ## 1  1.19
 
 ## Individually
 
@@ -126,9 +128,28 @@ possible.
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
+> Quote the statement you are planning to fact-check. Out of 173 listed
+> Avengers, my analysis found that 69 had died at least one time after
+> they joined the team.
 
 ### Include the code
+
+``` r
+deaths_summary <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarise(num_deaths = n()) %>%
+  summarise(
+    total_avengers = n(),
+    died_at_least_once = sum(num_deaths >= 1)
+  )
+
+deaths_summary
+```
+
+    ## # A tibble: 1 × 2
+    ##   total_avengers died_at_least_once
+    ##            <int>              <int>
+    ## 1            163                163
 
 Make sure to include the code to derive the (numeric) fact for the
 statement
