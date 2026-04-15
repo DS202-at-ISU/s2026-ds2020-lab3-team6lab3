@@ -30,7 +30,37 @@ av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/av
 head(av)
 ```
 
-Get the data into a format where the five columns for Death[1-5] are replaced by two columns: Time, and Death. Time should be a number between 1 and 5 (look into the function `parse_number`); Death is a categorical variables with values "yes", "no" and "". Call the resulting data set `deaths`. 
+Get the data into a format where the five columns for Death[1-5] are replaced by two columns: Time, and Death. Time should be a number between 1 and 5 (look into the function `parse_number`); Death is a categorical variables with values "yes", "no" and "". Call the resulting data set `deaths`.
+
+```{r}
+library(tidyverse)
+deaths <- av %>%
+  pivot_longer(
+    cols = c(Death1, Death2, Death3, Death4, Death5),
+    names_to = "Time",
+    values_to = "Death"
+  ) %>%
+  mutate(
+    Time = parse_number(Time),
+    Death = str_to_lower(Death)
+    )
+
+returns <- av %>%
+  pivot_longer(
+    cols = c(Return1, Return2, Return3, Return4, Return5),
+    names_to = "Time",
+    values_to = "Return"
+  ) %>%
+  mutate(
+    Time = parse_number(Time),
+    Return = str_to_lower(Return)
+  )
+
+
+
+  
+```
+
 
 Similarly, deal with the returns of characters.
 
