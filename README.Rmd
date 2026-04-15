@@ -43,7 +43,8 @@ deaths <- av %>%
   mutate(
     Time = parse_number(Time),
     Death = str_to_lower(Death)
-    )
+  ) %>%
+  filter(Death != "")
 
 returns <- av %>%
   pivot_longer(
@@ -54,9 +55,8 @@ returns <- av %>%
   mutate(
     Time = parse_number(Time),
     Return = str_to_lower(Return)
-  )
-
-
+  ) %>%
+  filter(Return != "")
 
   
 ```

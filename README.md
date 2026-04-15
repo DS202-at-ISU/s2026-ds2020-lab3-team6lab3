@@ -82,7 +82,8 @@ deaths <- av %>%
   mutate(
     Time = parse_number(Time),
     Death = str_to_lower(Death)
-    )
+  ) %>%
+  filter(Death != "")
 
 returns <- av %>%
   pivot_longer(
@@ -93,7 +94,8 @@ returns <- av %>%
   mutate(
     Time = parse_number(Time),
     Return = str_to_lower(Return)
-  )
+  ) %>%
+  filter(Return != "")
 ```
 
 Similarly, deal with the returns of characters.
@@ -113,7 +115,7 @@ avg_deaths
     ## # A tibble: 1 × 1
     ##     avg
     ##   <dbl>
-    ## 1  5.31
+    ## 1  1.19
 
 ## Individually
 
