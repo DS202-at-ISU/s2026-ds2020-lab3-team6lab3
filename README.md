@@ -81,10 +81,8 @@ deaths <- av %>%
   ) %>%
   mutate(
     Time = parse_number(Time),
-    Death = str_to_lower(Death)
-  ) %>%
-  filter(Death != "")
-  
+    Death = factor(str_to_lower(Death), levels = c("", "no", "yes"))
+  )
 
 returns <- av %>%
   pivot_longer(
@@ -94,9 +92,8 @@ returns <- av %>%
   ) %>%
   mutate(
     Time = parse_number(Time),
-    Return = str_to_lower(Return)
-  ) %>%
-  filter(Return != "")
+    Return = factor(str_to_lower(Return), levels = c("", "no", "yes"))
+  )
 ```
 
 Similarly, deal with the returns of characters.
@@ -105,18 +102,22 @@ Based on these datasets calculate the average number of deaths an
 Avenger suffers.
 
 ``` r
-avg_deaths <- deaths %>%
-  group_by(Name.Alias) %>%
-  summarise(num_deaths = n()) %>%
+avg_deaths <- av %>%
+  distinct(Name.Alias) %>%
+  left_join(
+    deaths %>%
+      filter(Death == "yes") %>%
+      count(Name.Alias, name = "num_deaths"),
+    by = "Name.Alias"
+  ) %>%
+  mutate(num_deaths = replace_na(num_deaths, 0)) %>%
   summarise(avg = mean(num_deaths))
 
 avg_deaths
 ```
 
-    ## # A tibble: 1 × 1
-    ##     avg
-    ##   <dbl>
-    ## 1  1.19
+    ##         avg
+    ## 1 0.5460123
 
 ## Individually
 
@@ -253,9 +254,3 @@ deaths |>
 All 9 Avengers listed do in fact die at least once. Hawkeye and Thor
 both had latest death times of 2, so the data also supports the claim
 that Hawkeye (Clint Barton) died twice.
-
-Include at least one sentence discussing the result of your
-fact-checking endeavor.
-
-Upload your changes to the repository. Discuss and refine answers as a
-team.
