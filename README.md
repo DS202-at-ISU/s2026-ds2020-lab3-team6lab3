@@ -84,6 +84,7 @@ deaths <- av %>%
     Death = str_to_lower(Death)
   ) %>%
   filter(Death != "")
+  
 
 returns <- av %>%
   pivot_longer(
@@ -134,27 +135,37 @@ possible.
 
 ### Include the code
 
+### Shiva
+
 ``` r
-deaths_summary <- deaths %>%
-  group_by(Name.Alias) %>%
-  summarise(num_deaths = n()) %>%
+deaths_summary <- av %>%
+  mutate(
+    died_at_least_once =
+      Death1 == "YES" |
+      Death2 == "YES" |
+      Death3 == "YES" |
+      Death4 == "YES" |
+      Death5 == "YES"
+  ) %>%
   summarise(
     total_avengers = n(),
-    died_at_least_once = sum(num_deaths >= 1)
+    died_at_least_once = sum(died_at_least_once, na.rm = TRUE)
   )
 
 deaths_summary
 ```
 
-    ## # A tibble: 1 × 2
     ##   total_avengers died_at_least_once
-    ##            <int>              <int>
-    ## 1            163                163
+    ## 1            173                 69
 
 Make sure to include the code to derive the (numeric) fact for the
 statement
 
 ### Include your answer
+
+The analysis shows that 69 out of 173 Avengers have died at least once,
+which matches the claim made in the article. This confirms that about
+40% of Avengers experience death during their time on the team.
 
 Include at least one sentence discussing the result of your
 fact-checking endeavor.
