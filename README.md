@@ -129,13 +129,19 @@ possible.
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check. Out of 173 listed
-> Avengers, my analysis found that 69 had died at least one time after
-> they joined the team.
+> Quote the statement you are planning to fact-check.
 
 ### Include the code
 
+### Include your answer
+
+Make sure to include the code to derive the (numeric) fact for the
+statement
+
 ### Shiva
+
+> Out of 173 listed Avengers, my analysis found that 69 had died at
+> least one time after they joined the team.
 
 ``` r
 deaths_summary <- av %>%
@@ -157,11 +163,6 @@ deaths_summary
 
     ##   total_avengers died_at_least_once
     ## 1            173                 69
-
-Make sure to include the code to derive the (numeric) fact for the
-statement
-
-### Include your answer
 
 The analysis shows that 69 out of 173 Avengers have died at least once,
 which matches the claim made in the article. This confirms that about
