@@ -7,6 +7,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 # Lab report #3 - instructions
@@ -44,8 +45,20 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 ### FiveThirtyEight Statement
 
 > Quote the statement you are planning to fact-check.
+Out of 173 listed Avengers, my analysis found that 69 had died at least one time after they joined the team.
 
 ### Include the code
+```{r}
+deaths_summary <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarise(num_deaths = n()) %>%
+  summarise(
+    total_avengers = n(),
+    died_at_least_once = sum(num_deaths >= 1)
+  )
+
+deaths_summary
+```
 
 Make sure to include the code to derive the (numeric) fact for the statement
 

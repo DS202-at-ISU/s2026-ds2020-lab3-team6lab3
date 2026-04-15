@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/LEAcVKPz)
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
@@ -88,12 +87,18 @@ possible.
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
+> Quote the statement you are planning to fact-check. Out of 173 listed
+> Avengers, my analysis found that 69 had died at least one time after
+> they joined the team.
 
 ### Include the code
 
-Make sure to include the code to derive the (numeric) fact for the
-statement
+deaths_summary \<- deaths %\>% group_by(Name.Alias) %\>%
+summarise(num_deaths = n()) %\>% summarise( total_avengers = n(),
+died_at_least_once = sum(num_deaths \>= 1) )
+
+deaths_summary Make sure to include the code to derive the (numeric)
+fact for the statement
 
 ### Include your answer
 
