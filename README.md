@@ -167,6 +167,36 @@ The analysis shows that 69 out of 173 Avengers have died at least once,
 which matches the claim made in the article. This confirms that about
 40% of Avengers experience death during their time on the team.
 
+> I counted 89 total deaths — some unlucky Avengers7 are basically Meat
+> Loaf with an E-ZPass — and on 57 occasions the individual made a
+> comeback
+
+``` r
+deaths %>%
+  filter(Death == "yes") %>%
+  summarise(NumberofDeaths = sum(n())) 
+```
+
+    ## # A tibble: 1 × 1
+    ##   NumberofDeaths
+    ##            <int>
+    ## 1             89
+
+``` r
+returns %>%
+  filter(Return == "yes") %>%
+  summarise(NumberofReturns = sum(n())) 
+```
+
+    ## # A tibble: 1 × 1
+    ##   NumberofReturns
+    ##             <int>
+    ## 1              57
+
+We can see a total number of 89 deaths from the deaths set and a total
+number of 57 returns from the return dataset, meaning his statement is
+true.
+
 Include at least one sentence discussing the result of your
 fact-checking endeavor.
 
