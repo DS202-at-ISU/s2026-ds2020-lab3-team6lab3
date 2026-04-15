@@ -130,19 +130,7 @@ We can see a total number of 89 deaths from the deaths set and a total number of
 
 ### Pablo
 
-For each team member, copy this part of the report. 
-
-Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
-
-### FiveThirtyEight Statement
-
-> Quote the statement you are planning to fact-check.
-
-What’s more, if you’re a fan of the MCU, nobody is safe. Of the nine Avengers we see on screen — Iron Man, Hulk, Captain America, Thor, Hawkeye, Black Widow, Scarlet Witch, Quicksilver and The Vision — every single one of them has died at least once in the course of their time Avenging in the comics. In fact, Hawkeye died twice!6
-
-### Include the code
-
-Make sure to include the code to derive the (numeric) fact for the statement
+> What’s more, if you’re a fan of the MCU, nobody is safe. Of the nine Avengers we see on screen — Iron Man, Hulk, Captain America, Thor, Hawkeye, Black Widow, Scarlet Witch, Quicksilver and The Vision — every single one of them has died at least once in the course of their time Avenging in the comics. In fact, Hawkeye died twice!6
 
 ```{r}
 deaths %>%
@@ -171,7 +159,6 @@ deaths |>
   arrange(desc(latest_death_time))
 ```
 
-### Include your answer
 All 9 Avengers listed do in fact die at least once. Hawkeye and Thor both had latest death times of 2, so the data also supports the claim that Hawkeye (Clint Barton) died twice. 
 
 Include at least one sentence discussing the result of your fact-checking endeavor.

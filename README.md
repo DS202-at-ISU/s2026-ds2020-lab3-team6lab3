@@ -200,6 +200,60 @@ We can see a total number of 89 deaths from the deaths set and a total
 number of 57 returns from the return dataset, meaning his statement is
 true.
 
+### Pablo
+
+> What’s more, if you’re a fan of the MCU, nobody is safe. Of the nine
+> Avengers we see on screen — Iron Man, Hulk, Captain America, Thor,
+> Hawkeye, Black Widow, Scarlet Witch, Quicksilver and The Vision —
+> every single one of them has died at least once in the course of their
+> time Avenging in the comics. In fact, Hawkeye died twice!6
+
+``` r
+deaths %>%
+  distinct(Name.Alias) %>%
+  pull(Name.Alias) %>%
+  grep(pattern = "Natalia", value = TRUE)
+```
+
+    ## [1] "Natalia Alianovna Romanova"
+
+``` r
+deaths |>
+  select(Name.Alias, Honorary, Time, Death) |>
+  filter(Name.Alias %in% c(
+    'Anthony Edward "Tony" Stark',
+    "Robert Bruce Banner",
+    "Wanda Maximoff",
+    "Thor Odinson",
+    "Steven Rogers",
+    "Pietro Maximoff",
+    "Victor Shade (alias)",
+    "Clinton Francis Barton",
+    "Natalia Alianovna Romanova"
+  )) |>
+  filter(Death == "yes", !is.na(Time)) |>
+  group_by(Name.Alias) |>
+  summarise(latest_death_time = max(Time), .groups = "drop") |>
+  arrange(desc(latest_death_time))
+```
+
+    ## # A tibble: 9 × 2
+    ##   Name.Alias                      latest_death_time
+    ##   <chr>                                       <dbl>
+    ## 1 "Clinton Francis Barton"                        2
+    ## 2 "Thor Odinson"                                  2
+    ## 3 "Anthony Edward \"Tony\" Stark"                 1
+    ## 4 "Natalia Alianovna Romanova"                    1
+    ## 5 "Pietro Maximoff"                               1
+    ## 6 "Robert Bruce Banner"                           1
+    ## 7 "Steven Rogers"                                 1
+    ## 8 "Victor Shade (alias)"                          1
+    ## 9 "Wanda Maximoff"                                1
+
+All 9 Avengers listed do in fact die at least once. Hawkeye and Thor
+both had latest death times of 2, so the data also supports the claim
+that Hawkeye (Clint Barton) died twice.
+
 Include at least one sentence discussing the result of your
 fact-checking endeavor.
 
